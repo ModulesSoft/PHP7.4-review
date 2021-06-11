@@ -1,6 +1,6 @@
-# PHP Crash Course 2020
+# PHP7+ simple CMS
 
-## Initial version - You can download the code and follow the video tutorial.
+## Initial version 
 
 The review covers all the basic things about PHP 7.4. 
  - Basics
