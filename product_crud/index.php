@@ -33,7 +33,6 @@ try {
 
   <title>Simple Products CRUD Review</title>
 </head>
-
 <body>
   <h1>Products list</h1>
 
@@ -48,7 +47,7 @@ try {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     -->
 
-<p> 
+<p>
 <a href="create.php" type="button" class="btn btn-sm btn-outline-success">new product</a> 
 </p>
   <table class="table">
