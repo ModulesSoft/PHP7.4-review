@@ -5,6 +5,8 @@ $username = "developer";
 $password = "password";
 $dbName = "phpcrud";
 $pdo = null;
+
+
 try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
     // set the PDO error mode to exception
@@ -13,6 +15,31 @@ try {
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
+
+$id = null;
+$image = null;
+$title = null;
+$description  = null;
+$price = null;
+if (!isset($_GET['id'])) {
+    header("Location : index.php");
+    exit;
+} else {
+    $id = $_GET['id'];
+    try {
+        $statement = $pdo->prepare("select * from products where id = :id");
+        $statement->bindValue('id', $id);
+        $statement->execute();
+        $result = $statement->fetch();
+        $image = $result['image'];
+        $title = $result['title'];
+        $description = $result['description'];
+        $price = $result['price'];
+    } catch (PDOException $e) {
+        echo "Query failed: " . $e->getMessage();
+    }
+}
+
 //validation and submit query
 $errors = [];
 if (!empty($_POST)) {
@@ -26,11 +53,10 @@ if (!empty($_POST)) {
         $errors[] = "price must not be empty";
     }
     if (empty($errors)) {
-        $image = null;
         $title = $_POST['title'];
         $description = $_POST['description'];
         $price = $_POST['price'];
-        if (isset($_FILES)) {
+        if (isset($_FILES) && $_FILES['image']['name']) {
             if (!file_exists('uploads')) {
                 mkdir('uploads', 0777, true);
             }
@@ -40,11 +66,12 @@ if (!empty($_POST)) {
             move_uploaded_file($_FILES['image']['tmp_name'], $imagePath);
         }
         try {
-            $statement = $pdo->prepare("insert into products (title,description,image,price) values (:title,:description,:image,:price)");
+            $statement = $pdo->prepare("update products set title=:title,description=:description,image=:image,price=:price where id=:id;");
             $statement->bindValue('title', $title);
             $statement->bindValue('description', $description);
             $statement->bindValue('image', $image);
             $statement->bindValue('price', $price);
+            $statement->bindValue('id', $id);
             $statement->execute();
             header("Location: index.php");
             exit;
@@ -56,7 +83,7 @@ if (!empty($_POST)) {
 
 function randomName(string $extention)
 {
-    if(!$extention){
+    if (!$extention) {
         die('image extention not found!');
     }
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -78,7 +105,7 @@ function randomName(string $extention)
 </head>
 
 <body>
-    <h1>Add new product</h1>
+    <h1>edit product <?php echo $title; ?></h1>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -103,19 +130,19 @@ function randomName(string $extention)
         <form action="" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="image" class="form-label">Image</label>
-                <input name="image" id="image" type="file" class="form-control">
+                <input name="image" id="image" type="file" class="form-control" value="<?php echo $image ?>">
             </div>
             <div class="form-group">
                 <label for="title" class="form-label">Title</label>
-                <input name="title" class="form-control" id="title">
+                <input name="title" class="form-control" id="title" value="<?php echo $title ?>">
             </div>
             <div class="form-group">
                 <label for="description" class="form-label">Description</label>
-                <textarea name="description" class="form-control" id="description"></textarea>
+                <textarea name="description" class="form-control" id="description"><?php echo $description ?></textarea>
             </div>
             <div class="form-group">
                 <label class="form-label" for="price">Price</label>
-                <input name="price" type="number" step=".01" class="form-control" id="price">
+                <input name="price" type="number" step=".01" class="form-control" id="price" value="<?php echo $price ?>">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

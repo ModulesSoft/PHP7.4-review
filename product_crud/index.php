@@ -71,7 +71,10 @@ try {
           <td><?php echo $p['create_date']; ?></td>
           <td>
             <button type="button" class="btn btn-sm btn-outline-danger">delete</button>
-            <button type="button" class="btn btn-sm btn-outline-warning">edit</button>
+            <form action="edit.php" method="get">
+              <input hidden name="id" value="<?php echo $p['id'] ?>"/>
+              <button type="submit" class="btn btn-sm btn-outline-warning">edit</button>
+            </form>
           </td>
         </tr>
       <?php endforeach; ?>
