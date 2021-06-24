@@ -33,6 +33,7 @@ try {
 
   <title>Simple Products CRUD Review</title>
 </head>
+
 <body>
   <h1>Products list</h1>
 
@@ -47,9 +48,9 @@ try {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     -->
 
-<p>
-<a href="create.php" type="button" class="btn btn-sm btn-outline-success">new product</a> 
-</p>
+  <p>
+    <a href="create.php" type="button" class="btn btn-sm btn-outline-success">new product</a>
+  </p>
   <table class="table">
     <thead>
       <tr>
@@ -70,9 +71,12 @@ try {
           <td><?php echo $p['price']; ?>$</td>
           <td><?php echo $p['create_date']; ?></td>
           <td>
-            <button type="button" class="btn btn-sm btn-outline-danger">delete</button>
+            <form action="delete.php" method="post">
+              <input hidden name="id" value="<?php echo $p['id'] ?>" />
+              <button type="submit" class="btn btn-sm btn-outline-danger">delete</button>
+            </form>
             <form action="edit.php" method="get">
-              <input hidden name="id" value="<?php echo $p['id'] ?>"/>
+              <input hidden name="id" value="<?php echo $p['id'] ?>" />
               <button type="submit" class="btn btn-sm btn-outline-warning">edit</button>
             </form>
           </td>

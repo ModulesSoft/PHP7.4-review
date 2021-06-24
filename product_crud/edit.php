@@ -22,7 +22,7 @@ $title = null;
 $description  = null;
 $price = null;
 if (!isset($_GET['id'])) {
-    header("Location : index.php");
+    header("Location:index.php");
     exit;
 } else {
     $id = $_GET['id'];
@@ -73,7 +73,7 @@ if (!empty($_POST)) {
             $statement->bindValue('price', $price);
             $statement->bindValue('id', $id);
             $statement->execute();
-            header("Location: index.php");
+            header("Location:index.php");
             exit;
         } catch (PDOException $e) {
             echo "Query failed: " . $e->getMessage();

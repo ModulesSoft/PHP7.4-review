@@ -46,7 +46,7 @@ if (!empty($_POST)) {
             $statement->bindValue('image', $image);
             $statement->bindValue('price', $price);
             $statement->execute();
-            header("Location: index.php");
+            header("Location:index.php");
             exit;
         } catch (PDOException $e) {
             echo "Query failed: " . $e->getMessage();
