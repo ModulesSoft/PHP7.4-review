@@ -4,6 +4,9 @@ $servername = "localhost";
 $username = "developer";
 $password = "password";
 $dbName = "phpcrud";
+$search = null;
+
+//DB connection
 try {
   $pdo = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
   // set the PDO error mode to exception
@@ -12,12 +15,26 @@ try {
 } catch (PDOException $e) {
   echo "Connection failed: " . $e->getMessage();
 }
-try {
-  $statement = $pdo->prepare('select * from products');
-  $statement->execute();
-  $products = $statement->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-  echo "Query failed: " . $e->getMessage();
+
+//Get products query
+if (isset($_GET['search'])) {
+  $search = $_GET['search'];
+  try {
+    $statement = $pdo->prepare('select * from products where title like :title;');
+    $statement->bindValue(":title","%$search%");
+    $statement->execute();
+    $products = $statement->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    echo "Query failed: " . $e->getMessage();
+  }
+} else {
+  try {
+    $statement = $pdo->prepare('select * from products');
+    $statement->execute();
+    $products = $statement->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    echo "Query failed: " . $e->getMessage();
+  }
 }
 ?>
 <!doctype html>
@@ -47,7 +64,14 @@ try {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     -->
-
+  <p>
+  <form action="" method="get">
+    <div class="input-group mb-3">
+      <input name="search" value="<?php echo $search ?>" type="text" class="form-control" placeholder="Search products" aria-label="Recipient's username" aria-describedby="button-addon2">
+      <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+    </div>
+  </form>
+  </p>
   <p>
     <a href="create.php" type="button" class="btn btn-sm btn-outline-success">new product</a>
   </p>
@@ -66,7 +90,7 @@ try {
       <?php foreach ($products as $i => $p) : ?>
         <tr>
           <th scope="row"><?php echo $i ?></th>
-          <td><?php echo $p['image']; ?></td>
+          <td><img style="width:100px" src="<?php echo $p['image']; ?>" /></td>
           <td><?php echo $p['title']; ?></td>
           <td><?php echo $p['price']; ?>$</td>
           <td><?php echo $p['create_date']; ?></td>

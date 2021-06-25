@@ -57,13 +57,17 @@ if (!empty($_POST)) {
         $description = $_POST['description'];
         $price = $_POST['price'];
         if (isset($_FILES) && $_FILES['image']['name']) {
+            if(!($_FILES['image']['size'])){
+                die('image size is too heavy. maximum possible: 2MB');
+            }
             if (!file_exists('uploads')) {
                 mkdir('uploads', 0777, true);
             }
+            //make unique name and path for image
             $ext = explode('.', $_FILES['image']['name']);
             $extention = $ext[count($ext) - 1];
             $image = 'uploads/' . randomName($extention);
-            move_uploaded_file($_FILES['image']['tmp_name'], $imagePath);
+            move_uploaded_file($_FILES['image']['tmp_name'], $image);
         }
         try {
             $statement = $pdo->prepare("update products set title=:title,description=:description,image=:image,price=:price where id=:id;");
@@ -106,7 +110,7 @@ function randomName(string $extention)
 
 <body>
     <h1>edit product <?php echo $title; ?></h1>
-
+    <img style="width:200px" src="<?php echo $image; ?>" />
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

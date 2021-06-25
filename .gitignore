@@ -5,3 +5,4 @@ vendor
 *.png
 *.webp
 deleted
+product_crud/uploads

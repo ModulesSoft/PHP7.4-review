@@ -31,13 +31,17 @@ if (!empty($_POST)) {
         $description = $_POST['description'];
         $price = $_POST['price'];
         if (isset($_FILES)) {
+            if(!($_FILES['image']['size'])){
+                die('image size is too heavy. maximum possible: 2MB');
+            }
             if (!file_exists('uploads')) {
                 mkdir('uploads', 0777, true);
             }
+            //make unique name and path for image
             $ext = explode('.', $_FILES['image']['name']);
             $extention = $ext[count($ext) - 1];
             $image = 'uploads/' . randomName($extention);
-            move_uploaded_file($_FILES['image']['tmp_name'], $imagePath);
+            move_uploaded_file($_FILES['image']['tmp_name'], $image);
         }
         try {
             $statement = $pdo->prepare("insert into products (title,description,image,price) values (:title,:description,:image,:price)");
