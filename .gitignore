@@ -5,4 +5,6 @@ vendor
 *.png
 *.webp
 deleted
-product_crud/uploads
+product_crud/basic version/public/uploads
+product_crud/better version/public/uploads
+product_crud/MVC version/public/uploads

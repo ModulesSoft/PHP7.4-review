@@ -1,7 +1,7 @@
 <?php
 //DB connection
 /** @var $pdo \PDO */
-require_once "database.php";
+require_once "../database.php";
 
 $search = null;
 
@@ -29,7 +29,7 @@ if (isset($_GET['search'])) {
 <!doctype html>
 <html lang="en">
 <?php
-require_once "_header.php";
+require_once "../views/_header.php";
 ?>
 <body>
   <h1>Products list</h1>
