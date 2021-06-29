@@ -11,19 +11,19 @@
     <form action="" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="image" class="form-label">Image</label>
-            <input name="image" id="image" type="file" class="form-control">
+            <input name="image" id="image" type="file" class="form-control" value="<?php echo $image ?>">
         </div>
         <div class="form-group">
             <label for="title" class="form-label">Title</label>
-            <input name="title" class="form-control" id="title">
+            <input name="title" class="form-control" id="title" value="<?php echo $title ?>">
         </div>
         <div class="form-group">
             <label for="description" class="form-label">Description</label>
-            <textarea name="description" class="form-control" id="description"></textarea>
+            <textarea name="description" class="form-control" id="description"><?php echo $description ?></textarea>
         </div>
         <div class="form-group">
             <label class="form-label" for="price">Price</label>
-            <input name="price" type="number" step=".01" class="form-control" id="price">
+            <input name="price" type="number" step=".01" class="form-control" id="price" value="<?php echo $price ?>">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
