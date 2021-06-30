@@ -1,0 +1,9 @@
+{
+    "name": "vendor/crud",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "app\\" : "./"
+        }
+    }
+}
