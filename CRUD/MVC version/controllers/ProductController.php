@@ -1,12 +1,17 @@
 <?php 
 namespace app\controllers;
+use app\models\Product;
+use app\Router;
+
 class ProductController {
 
     public function index($arg){
-        echo "index page";
-        echo '<pre>';
-        var_dump($arg);
-        echo '</pre>';
+        $search = $_GET['search'] ?? '';
+        $product = new Product();
+        $result = $product->getProducts($search);
+        $router = new Router();
+        $router->render('index',$result);
+
     }
 
 

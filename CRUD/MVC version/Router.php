@@ -4,6 +4,7 @@ namespace app;
 
 use app\Database;
 use app\controllers\ProductController;
+use app\views\products;
 
 class Router
 {
@@ -35,7 +36,7 @@ class Router
                 $fn = $this->postList[$url] ?? null;
                 break;
             default:
-                $fn = $this->postList[$url] ?? null;
+                $fn = null;
         }
         if(!$fn){
             http_response_code(404);
@@ -44,5 +45,15 @@ class Router
             call_user_func($fn,$uri);
         }
         // $url = $_SERVER[]
+    }
+    public function render($view, $data)
+    {
+        // foreach ($data as $key => $value) {
+        //     $$key = $value;
+        // }
+        // ob_start();
+        include __DIR__."/views/products/$view.php";
+        // $content = ob_get_clean();
+        // include __DIR__."/views/products/layout/_header.php";
     }
 }
