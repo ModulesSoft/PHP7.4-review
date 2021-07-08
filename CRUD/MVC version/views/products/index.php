@@ -4,15 +4,12 @@ $products = $data;
 ?>
 <!doctype html>
 <html lang="en">
-<?php
-require_once __DIR__."/layout/_header.php";
-?>
 <body>
   <h1>Products list</h1>
   <p>
   <form action="" method="get">
     <div class="input-group mb-3">
-      <input name="search" value="<?php echo $search; ?>" type="text" class="form-control" placeholder="Search products" aria-label="Recipient's username" aria-describedby="button-addon2">
+      <input name="search" value="<?php echo $search??''; ?>" type="text" class="form-control" placeholder="Search products" aria-label="Recipient's username" aria-describedby="button-addon2">
       <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
     </div>
   </form>
@@ -44,7 +41,7 @@ require_once __DIR__."/layout/_header.php";
               <input hidden name="id" value="<?php echo $p['id'] ?>" />
               <button type="submit" class="btn btn-sm btn-outline-danger">delete</button>
             </form>
-            <form action="edit.php" method="get">
+            <form action="edit" method="get">
               <input hidden name="id" value="<?php echo $p['id'] ?>" />
               <button type="submit" class="btn btn-sm btn-outline-warning">edit</button>
             </form>

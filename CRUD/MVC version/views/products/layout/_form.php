@@ -8,7 +8,7 @@
     </div>
 <?php endif ?>
 <div style="margin : 12px">
-    <form action="" method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="image" class="form-label">Image</label>
             <input name="image" id="image" type="file" class="form-control" value="<?php echo $image ?>">

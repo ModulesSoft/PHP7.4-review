@@ -7,6 +7,8 @@ $router = new Router();
 
 $router->get('/',[ProductController::class,"index"]);
 $router->get('/products',[ProductController::class,"index"]);
+$router->get('/edit',[ProductController::class,"edit"]);
+$router->post('/edit',[ProductController::class,"edit"]);
 // $router->post('/products/create',[ProductController::class,"create"]);
 // $router->post('/products/delete',[ProductController::class,"delete"]);
 $router->route();

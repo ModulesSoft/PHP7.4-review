@@ -52,6 +52,7 @@ class Router
         //     $$key = $value;
         // }
         // ob_start();
+        include __DIR__."/views/products/layout/_header.php";
         include __DIR__."/views/products/$view.php";
         // $content = ob_get_clean();
         // include __DIR__."/views/products/layout/_header.php";
