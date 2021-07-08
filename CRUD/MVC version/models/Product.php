@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\Database;
+use app\helpers\GeneralHelper;
 use PDO;
 use PDOException;
 
@@ -37,14 +38,6 @@ class Product
     }
     return $product;
   }
-  private function randomName(string $extention)
-  {
-    if (!$extention) {
-      die('image extention not found!');
-    }
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    return substr(str_shuffle($characters), -10) . '.' . $extention;
-  }
 
   public function save($product)
   {
@@ -76,7 +69,7 @@ class Product
           //make unique name and path for image
           $ext = explode('.', $imageFile['name']);
           $extention = $ext[count($ext) - 1];
-          $image = 'uploads/' . $this->randomName($extention);
+          $image = 'uploads/' . GeneralHelper::randomName($extention);
           move_uploaded_file($imageFile['tmp_name'], $image);
         }
         try {
