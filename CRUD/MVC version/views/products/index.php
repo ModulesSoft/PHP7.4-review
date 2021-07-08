@@ -37,7 +37,7 @@ $products = $data;
           <td><?php echo $p['price']; ?>$</td>
           <td><?php echo $p['create_date']; ?></td>
           <td>
-            <form action="delete.php" method="post">
+            <form action="delete" method="post">
               <input hidden name="id" value="<?php echo $p['id'] ?>" />
               <button type="submit" class="btn btn-sm btn-outline-danger">delete</button>
             </form>

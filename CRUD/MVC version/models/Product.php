@@ -87,13 +87,26 @@ class Product
           $statement->bindValue('price', $price);
           $statement->bindValue('id', $id);
           $statement->execute();
-          header("Location:index.php");
+          header("Location:/");
           exit;
         } catch (PDOException $e) {
           echo "Query failed: " . $e->getMessage();
         }
       } else {
         return $errors;
+      }
+    }
+  }
+  public function delete($id)
+  {
+    if (isset($id)) {
+      try {
+        $statement = $this->db->pdo->prepare("delete from products where id = :id");
+        $statement->bindValue('id', $id);
+        $statement->execute();
+        header("Location:/");
+      } catch (PDOException $e) {
+        echo "Query failed: " . $e->getMessage();
       }
     }
   }

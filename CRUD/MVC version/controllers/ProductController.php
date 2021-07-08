@@ -37,7 +37,14 @@ class ProductController {
         }
 
     }
-
+    public function delete()
+    {
+        $id = $_POST['id'];
+        $product = new Product();
+        $result = $product->delete($id);
+        $router = new Router();
+        $router->render('index','');
+    }
 
 
 }
