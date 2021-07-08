@@ -84,11 +84,10 @@ class Product
             $statement = $this->db->pdo->prepare("insert into products (title,description,image,price) values (:title,:description,:image,:price)");
             $statement->bindValue('title', $title);
             $statement->bindValue('description', $description);
-            $statement->bindValue('image', $image??null);
+            $statement->bindValue('image', $image ?? null);
             $statement->bindValue('price', $price);
             $statement->execute();
-            header("Location:/");
-            exit;
+            // exit;
           } else { //update a product
             if ($image) {
               $statement = $this->db->pdo->prepare("update products set title=:title,description=:description,image=:image,price=:price where id=:id;");
@@ -98,6 +97,7 @@ class Product
               $statement->bindValue('price', $price);
               $statement->bindValue('id', $id);
               $statement->execute();
+              // exit;
             } elseif (!$image) {
               $statement = $this->db->pdo->prepare("update products set title=:title,description=:description,price=:price where id=:id;");
               $statement->bindValue('title', $title);
@@ -105,10 +105,11 @@ class Product
               $statement->bindValue('price', $price);
               $statement->bindValue('id', $id);
               $statement->execute();
+              // exit;
             }
           }
-          header("Location:/");
-          exit;
+
+          return null;
         } catch (PDOException $e) {
           echo "Query failed: " . $e->getMessage();
         }
@@ -124,7 +125,6 @@ class Product
         $statement = $this->db->pdo->prepare("delete from products where id = :id");
         $statement->bindValue('id', $id);
         $statement->execute();
-        header("Location:/");
       } catch (PDOException $e) {
         echo "Query failed: " . $e->getMessage();
       }
