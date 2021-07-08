@@ -1,10 +1,9 @@
 <?php
-$id = '';
-$image = '';
-$title = '';
-$description  = '';
-$price = '';
-
+$id = $data['id'];
+$image = $data['image'];
+$title = $data['title'];
+$description  = $data['description'];
+$price = $data['price'];
 ?>
 <!doctype html>
 <html lang="en">

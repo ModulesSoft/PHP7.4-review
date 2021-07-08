@@ -12,7 +12,7 @@ class ProductController
     {
         $search = $_GET['search'] ?? '';
         $product = new Product();
-        $result = $product->getProducts($search);
+        $result = $product->db->getProducts($search);
         $router = new Router();
         $router->render('index', $result);
     }
@@ -28,9 +28,9 @@ class ProductController
             $productData['imageFile'] = $_FILES['image'] ?? null;
             $productData['id'] = $id;
             $product = new Product();
-            // $product->load($productData);
+            $product->set($productData);
             $router = new Router();
-            $errors = $product->save($productData);
+            $errors = $product->save();
             if ($errors) {
                 $router->render('edit', $productData, $errors);
             } else {
@@ -39,7 +39,7 @@ class ProductController
             }
         } else {
             $product = new Product();
-            $result = $product->getProduct($id);
+            $result = $product->db->getProduct($id);
             $router = new Router();
             $router->render('edit', $result);
         }
@@ -48,7 +48,7 @@ class ProductController
     {
         $id = $_POST['id'];
         $product = new Product();
-        $result = $product->delete($id);
+        $result = $product->db->deleteProduct($id);
         $router = new Router();
         header("Location:/");
         exit;
@@ -62,11 +62,11 @@ class ProductController
             $productData['price'] = $_POST['price'];
             $productData['imageFile'] = $_FILES['image'] ?? null;
             $product = new Product();
-            // $product->load($productData);
-            $errors = $product->save($productData);
+            $product->set($productData);
+            $errors = $product->save();
             if ($errors) {
                 $router = new Router();
-                $router->render('create', null, $errors);
+                $router->render('create', $productData, $errors);
             } else {
                 header("Location:/");
                 exit;
