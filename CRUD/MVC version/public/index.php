@@ -7,10 +7,9 @@ $router = new Router();
 
 $router->get('/',[ProductController::class,"index"]);
 $router->get('/products',[ProductController::class,"index"]);
-$router->get('/edit',[ProductController::class,"edit"]);
-$router->post('/edit',[ProductController::class,"edit"]);
-$router->post('/delete',[ProductController::class,"delete"]);
-
-// $router->post('/products/create',[ProductController::class,"create"]);
-// $router->post('/products/delete',[ProductController::class,"delete"]);
+$router->get('/products/edit',[ProductController::class,"edit"]);
+$router->post('/products/edit',[ProductController::class,"edit"]);
+$router->post('/products/delete',[ProductController::class,"delete"]);
+$router->get('/products/create',[ProductController::class,"create"]);
+$router->post('/products/create',[ProductController::class,"create"]);
 $router->route();

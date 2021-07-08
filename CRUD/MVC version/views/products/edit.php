@@ -11,7 +11,7 @@ $price = $data['price'];
 
 <body>
     <h1>edit product <?php echo $title; ?></h1>
-    <img style="width:200px" src="<?php echo $image; ?>" />
+    <img style="width:200px" src="<?php echo '/'.$image; ?>" />
 
     <?php
     require_once __DIR__ . "/layout/_form.php";

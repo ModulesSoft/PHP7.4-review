@@ -15,7 +15,7 @@ $products = $data;
   </form>
   </p>
   <p>
-    <a href="create.php" type="button" class="btn btn-sm btn-outline-success">new product</a>
+    <a href="/products/create" type="button" class="btn btn-sm btn-outline-success">new product</a>
   </p>
   <table class="table">
     <thead>
@@ -37,11 +37,11 @@ $products = $data;
           <td><?php echo $p['price']; ?>$</td>
           <td><?php echo $p['create_date']; ?></td>
           <td>
-            <form action="delete" method="post">
+            <form action="/products/delete" method="post">
               <input hidden name="id" value="<?php echo $p['id'] ?>" />
               <button type="submit" class="btn btn-sm btn-outline-danger">delete</button>
             </form>
-            <form action="edit" method="get">
+            <form action="/products/edit" method="get">
               <input hidden name="id" value="<?php echo $p['id'] ?>" />
               <button type="submit" class="btn btn-sm btn-outline-warning">edit</button>
             </form>

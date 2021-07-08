@@ -13,7 +13,7 @@ class Product
   {
     $this->db = new Database;
   }
-  public function getProducts($keywords)
+  public function getProducts($keywords = '')
   {
     try {
       $statement = $this->db->pdo->prepare('select * from products where title like :title;');
@@ -64,7 +64,7 @@ class Product
         $title = $product['title'];
         $description = $product['description'];
         $price = $product['price'];
-        $id = $product['id'];
+        $id = $product['id'] ?? null;
         $imageFile = $product['imageFile'];
         if (isset($imageFile) && $imageFile['name']) {
           if (!($imageFile['size'])) {
@@ -80,13 +80,33 @@ class Product
           move_uploaded_file($imageFile['tmp_name'], $image);
         }
         try {
-          $statement = $this->db->pdo->prepare("update products set title=:title,description=:description,image=:image,price=:price where id=:id;");
-          $statement->bindValue('title', $title);
-          $statement->bindValue('description', $description);
-          $statement->bindValue('image', $image);
-          $statement->bindValue('price', $price);
-          $statement->bindValue('id', $id);
-          $statement->execute();
+          if (!$id) { //create a new product
+            $statement = $this->db->pdo->prepare("insert into products (title,description,image,price) values (:title,:description,:image,:price)");
+            $statement->bindValue('title', $title);
+            $statement->bindValue('description', $description);
+            $statement->bindValue('image', $image??null);
+            $statement->bindValue('price', $price);
+            $statement->execute();
+            header("Location:/");
+            exit;
+          } else { //update a product
+            if ($image) {
+              $statement = $this->db->pdo->prepare("update products set title=:title,description=:description,image=:image,price=:price where id=:id;");
+              $statement->bindValue('title', $title);
+              $statement->bindValue('description', $description);
+              $statement->bindValue('image', $image);
+              $statement->bindValue('price', $price);
+              $statement->bindValue('id', $id);
+              $statement->execute();
+            } elseif (!$image) {
+              $statement = $this->db->pdo->prepare("update products set title=:title,description=:description,price=:price where id=:id;");
+              $statement->bindValue('title', $title);
+              $statement->bindValue('description', $description);
+              $statement->bindValue('price', $price);
+              $statement->bindValue('id', $id);
+              $statement->execute();
+            }
+          }
           header("Location:/");
           exit;
         } catch (PDOException $e) {

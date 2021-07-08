@@ -45,6 +45,24 @@ class ProductController {
         $router = new Router();
         $router->render('index','');
     }
-
+    public function create()
+    {
+        // $product = new Product();
+        $router = new Router();
+        $router->render('create','');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $productData = [];
+            $productData['title'] = $_POST['title'];
+            $productData['description'] = $_POST['description'];
+            $productData['price'] = $_POST['price'];
+            $productData['imageFile'] = $_FILES['image'] ?? null;
+            $product = new Product();
+            // $product->load($productData);
+            $errors = $product->save($productData);
+            if($errors){
+                $router->render('edit',$errors);
+            }
+        }
+    }
 
 }
