@@ -11,7 +11,7 @@
     <form method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="image" class="form-label">Image</label>
-            <input name="image" id="image" type="file" class="form-control" value="<?php echo $image ?>">
+            <input name="image" id="image" type="file" class="form-control">
         </div>
         <div class="form-group">
             <label for="title" class="form-label">Title</label>

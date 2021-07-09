@@ -58,8 +58,6 @@ class Database
             $statement->bindValue('image', $product->imagePath ?? null);
             $statement->bindValue('price', $product->price);
             $statement->execute();
-            // exit;
-
             return null;
         } catch (PDOException $e) {
             echo "Query failed: " . $e->getMessage();
@@ -77,7 +75,6 @@ class Database
                 $statement->bindValue('id', $product->id);
                 $statement->execute();
                 return null;
-                // exit;
             } elseif (!$product->imagePath) {
                 $statement = $this->pdo->prepare("update products set title=:title,description=:description,price=:price where id=:id;");
                 $statement->bindValue('title', $product->title);
@@ -86,7 +83,6 @@ class Database
                 $statement->bindValue('id', $product->id);
                 $statement->execute();
                 return null;
-                // exit;
             }
         } catch (PDOException $e) {
             echo "Query failed: " . $e->getMessage();

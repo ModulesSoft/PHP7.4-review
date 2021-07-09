@@ -44,18 +44,12 @@ class Router
         }else{
             call_user_func($fn,$uri);
         }
-        // $url = $_SERVER[]
     }
     public function render($view, $data =null, $errors=null)
     {
-        // foreach ($data as $key => $value) {
-        //     $$key = $value;
-        // }
         // ob_start();
-
         require_once __DIR__."/views/products/layout/_header.php";
         require_once __DIR__."/views/products/$view.php";
         // $content = ob_get_clean();
-        // include __DIR__."/views/products/layout/_header.php";
     }
 }
